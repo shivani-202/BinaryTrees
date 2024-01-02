@@ -37,11 +37,30 @@ node* buildTree() {
 
 vector<int> postorder(node* root, vector<int>& ans) {
     stack <node*> st;
-    node* temp = root;
-    if(temp == NULL) return ans;
-    
-    if(temp->left != NULL) st.push(temp->left);
-    if(temp->right != NULL) st.push(temp->right);
+    if(root == NULL) return ans;
+
+    while(root != NULL || !st.empty() ){
+        if(root != NULL){
+            st.push(root);
+            root = root->left;
+        }
+        else{
+            node* temp = st.top()->right;
+
+            if(temp == NULL){
+                temp = st.top();
+                st.pop();
+                ans.push_back(temp->data);
+                while(!st.empty() && temp == st.top()->right){
+                temp = st.top();
+                st.pop();
+                ans.push_back(temp->data);
+                }
+            }
+            else root = temp;
+        }
+    }
+    return ans;
 
 }
 
