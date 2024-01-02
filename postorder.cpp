@@ -1,4 +1,4 @@
-//iterative algoritm for preorder traversal
+//iterative algoritm for postorder traversal
 #include<iostream>
 #include<stack>
 #include<vector>
@@ -35,26 +35,22 @@ node* buildTree() {
     return root;
 }
 
-vector<int> preorder(node* root, vector<int>& ans) {
-    stack<node*> st;
-    if (root == NULL) return ans;
-    st.push(root);
-    while (!st.empty()) {
-        node* temp = st.top();
-        ans.push_back(temp->data);
-        st.pop();
-        if (temp->right != NULL) st.push(temp->right);
-        if (temp->left != NULL) st.push(temp->left);
-    }
-    return ans;
+vector<int> postorder(node* root, vector<int>& ans) {
+    stack <node*> st;
+    node* temp = root;
+    if(temp == NULL) return ans;
+    
+    if(temp->left != NULL) st.push(temp->left);
+    if(temp->right != NULL) st.push(temp->right);
+
 }
 
 int main() {
     node* root = NULL;
     root = buildTree();
     vector<int> ans;
-    ans = preorder(root, ans);
-    cout << "Preorder Traversal: ";
+    ans = postorder(root, ans);
+    cout << "Postorder Traversal: ";
     for (int val : ans) {
         cout << val << " ";
     }
